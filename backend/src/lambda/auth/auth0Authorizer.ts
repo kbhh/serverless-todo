@@ -12,7 +12,7 @@ const logger = createLogger('auth')
 //  Provide a URL that can be used to download a certificate that can be used
 // to verify JWT token signature.
 // To get this URL you need to go to an Auth0 page -> Show Advanced Settings -> Endpoints -> JSON Web Key Set
-const jwksUrl = process.env.JKWS_URL
+const jwksUrl = process.env.JWKS_URL
 
 export const handler = async (
   event: CustomAuthorizerEvent
@@ -94,6 +94,7 @@ async function getJwks() {
   }
 }
 
+
 function extractSigningKey(jwks, kid) {
   const key = jwks.find(key => key.kid === kid)
   if (!key) {
@@ -103,9 +104,8 @@ function extractSigningKey(jwks, kid) {
   return formatCertificate(key.x5c[0])
 }
 
-function formatCertificate(certificate) {
-  certificate = certificate.match(/.{1,64}/g).join('\n');
-  return `-----BEGIN CERTIFICATE-----\n${certificate}\n-----END CERTIFICATE-----\n`;
+function formatCertificate(certificate: any) {
+  return `-----BEGIN CERTIFICATE-----\n${certificate}\n-----END CERTIFICATE-----`
 }
 
 async function getSecret(kid) {

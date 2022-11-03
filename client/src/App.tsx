@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { Component } from 'react'
 import { Link, Route, Router, Switch } from 'react-router-dom'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
@@ -7,8 +8,6 @@ import { EditTodo } from './components/EditTodo'
 import { LogIn } from './components/LogIn'
 import { NotFound } from './components/NotFound'
 import { Todos } from './components/Todos'
-
-export interface AppProps {}
 
 export interface AppProps {
   auth: Auth
@@ -91,7 +90,7 @@ export default class App extends Component<AppProps, AppState> {
         <Route
           path="/"
           exact
-          render={props => {
+          render={(props) => {
             return <Todos {...props} auth={this.props.auth} />
           }}
         />
@@ -99,7 +98,7 @@ export default class App extends Component<AppProps, AppState> {
         <Route
           path="/todos/:todoId/edit"
           exact
-          render={props => {
+          render={(props) => {
             return <EditTodo {...props} auth={this.props.auth} />
           }}
         />
