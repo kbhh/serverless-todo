@@ -3,7 +3,7 @@ import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import * as middy from 'middy'
 import { getTodosForUser } from '../../businessLogic/todos'
-import { getUserId } from '../utils';
+import { getUserId } from '../utils'
 import { createLogger } from '../../utils/logger'
 
 const logger = createLogger('getTodos')
@@ -22,7 +22,7 @@ export const handler = middy(
     return {
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true
+        'Access-Control-Allow-Credentials': true,
       },
       statusCode: 200,
       body: JSON.stringify({

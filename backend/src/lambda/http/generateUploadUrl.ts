@@ -18,8 +18,8 @@ export const handler = middy(
     return {
       statusCode: 200,
       body: JSON.stringify({
-        uploadUrl: url
-      })
+        uploadUrl: url,
+      }),
     }
   })
 
@@ -27,6 +27,6 @@ handler
   .use(httpErrorHandler())
   .use(
     cors({
-      credentials: true
-    })
+      credentials: true,
+    }),
   )
