@@ -2,7 +2,6 @@ import * as AWS from 'aws-sdk'
 import * as AWSXRay from 'aws-xray-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { createLogger } from '../utils/logger'
-import { TodoItem } from '../models/TodoItem'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 
@@ -13,26 +12,24 @@ const logger = createLogger('TodosAccess')
 //  Implement the dataLayer logic
 
 export class TodosAccess {
-    constructor(
-        private readonly todosTable = process.env.TODOS_TABLE,
-        private readonly docClient: DocumentClient = createDocClient()
-    ) {
-    }
+    todosTable = process.env.TODOS_TABLE
+    docClient: DocumentClient = createDocClient()
 
     async getTodosForUser(userId: string) {
         const result = await this.docClient.query({
             TableName: this.todosTable,
             KeyConditionExpression: 'userId = :userId',
             ExpressionAttributeValues: {
-                ':userId': userId
+                ':userId': userId,
             },
-            ScanIndexForward: false
+            ScanIndexForward: false,
         }).promise()
 
         logger.info('Successfully retrieved todo items for user', {
-            userId: userId
+            userId: userId,
+            items: result,
         })
-        return result.Items as TodoItem[]
+        return result.Items
     }
 
     async createTodo(userId: string, todoId: string, newTodo: CreateTodoRequest) {

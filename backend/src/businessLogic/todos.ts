@@ -1,6 +1,5 @@
 import { TodosAccess } from '../data/todosAcess'
 import { AttachmentUtils } from '../helpers/attachmentUtils'
-import { TodoItem } from '../models/TodoItem'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 import { createLogger } from '../utils/logger'
@@ -11,7 +10,7 @@ const logger = createLogger('TodosBusinessLogic')
 const todoAccess = new TodosAccess()
 const attachmentUtils = new AttachmentUtils()
 
-export async function getTodosForUser(userId: string): Promise<TodoItem[]> {
+export async function getTodosForUser(userId: string): Promise<any> {
     return todoAccess.getTodosForUser(userId)
 }
 
